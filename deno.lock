@@ -1,0 +1,62 @@
+{
+  "version": "4",
+  "specifiers": {
+    "npm:next-themes@~0.4.3": "0.4.3_react@18.3.1_react-dom@18.3.1__react@18.3.1",
+    "npm:prettier-plugin-tailwindcss@~0.6.8": "0.6.8_prettier@3.3.3",
+    "npm:prettier@^3.3.3": "3.3.3"
+  },
+  "npm": {
+    "js-tokens@4.0.0": {
+      "integrity": "sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ=="
+    },
+    "loose-envify@1.4.0": {
+      "integrity": "sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==",
+      "dependencies": [
+        "js-tokens"
+      ]
+    },
+    "next-themes@0.4.3_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
+      "integrity": "sha512-nG84VPkTdUHR2YeD89YchvV4I9RbiMAql3GiLEQlPvq1ioaqPaIReK+yMRdg/zgiXws620qS1rU30TiWmmG9lA==",
+      "dependencies": [
+        "react",
+        "react-dom"
+      ]
+    },
+    "prettier-plugin-tailwindcss@0.6.8_prettier@3.3.3": {
+      "integrity": "sha512-dGu3kdm7SXPkiW4nzeWKCl3uoImdd5CTZEJGxyypEPL37Wj0HT2pLqjrvSei1nTeuQfO4PUfjeW5cTUNRLZ4sA==",
+      "dependencies": [
+        "prettier"
+      ]
+    },
+    "prettier@3.3.3": {
+      "integrity": "sha512-i2tDNA0O5IrMO757lfrdQZCc2jPNDVntV0m/+4whiDfWaTKfMNgR7Qz0NAeGz/nRqF4m5/6CLzbP4/liHt12Ew=="
+    },
+    "react-dom@18.3.1_react@18.3.1": {
+      "integrity": "sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==",
+      "dependencies": [
+        "loose-envify",
+        "react",
+        "scheduler"
+      ]
+    },
+    "react@18.3.1": {
+      "integrity": "sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==",
+      "dependencies": [
+        "loose-envify"
+      ]
+    },
+    "scheduler@0.23.2": {
+      "integrity": "sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==",
+      "dependencies": [
+        "loose-envify"
+      ]
+    }
+  },
+  "workspace": {
+    "dependencies": [
+      "npm:next-themes@~0.4.3",
+      "npm:prettier-plugin-tailwindcss@~0.6.8",
+      "npm:prettier@^3.3.3"
+    ]
+  }
+}
