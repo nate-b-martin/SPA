@@ -1,7 +1,0 @@
-{
-  "imports": {
-    "next-themes": "npm:next-themes@^0.4.3",
-    "prettier": "npm:prettier@^3.3.3",
-    "prettier-plugin-tailwindcss": "npm:prettier-plugin-tailwindcss@^0.6.8"
-  }
-}

@@ -1,0 +1,68 @@
+---
+alwaysApply: true
+---
+
+## Frontend Rules
+
+### Rules
+
+1. **UseModernReact**  
+   _Description:_ Always use functional components and React hooks for state and side effects.  
+   _Applies to:_ `tsx`, `jsx`
+
+2. **UseTailwindCSS**  
+   _Description:_ Use Tailwind CSS utility classes for styling components.  
+   _Applies to:_ `tsx`, `jsx`
+
+3. **ComponentStructure**  
+   _Description:_ Organize components in a clear, modular structure. Place reusable components in a components directory.  
+   _Applies to:_ `tsx`, `jsx`
+
+4. **Accessibility**  
+   _Description:_ Ensure all interactive elements are accessible (e.g., use semantic HTML, aria attributes as needed).  
+   _Applies to:_ `tsx`, `jsx`, `js`, `html`
+
+5. **TypeSafety**  
+   _Description:_ Use TypeScript for all frontend code and provide explicit types for props and state.  
+   _Applies to:_ `tsx`
+
+6. **NoInlineStyles**  
+   _Description:_ Avoid inline styles; prefer Tailwind CSS or CSS modules.  
+   _Applies to:_ `tsx`, `jsx`
+
+7. **CleanCode**  
+   _Description:_ Keep code clean and readable. Remove unused imports and variables.  
+   _Applies to:_ `tsx`, `jsx`, `js`
+
+8. **ResponsiveDesign**  
+   _Description:_ Ensure layouts are responsive and work well on mobile and desktop.  
+   _Applies to:_ `tsx`, `jsx`, `css`
+
+---
+
+### Do's
+
+- Write clear, self-documenting code with meaningful variable and function names.
+- Keep components small, focused, and reusable.
+- Write and maintain tests for critical logic and UI components.
+- Use version control (e.g., Git) and write descriptive commit messages.
+- Review code for readability, maintainability, and performance.
+- Handle errors gracefully and provide helpful user feedback.
+- Follow accessibility best practices and test with assistive technologies.
+- Document complex logic and architectural decisions.
+- Keep dependencies up to date and monitor for security vulnerabilities.
+- Ensure cross-browser and cross-device compatibility.
+
+---
+
+### Do Not's
+
+- Do not hardcode sensitive information (e.g., API keys, secrets) in the codebase.
+- Do not ignore linter or TypeScript errors and warnings.
+- Do not duplicate code; extract and reuse logic where possible.
+- Do not use deprecated or unsupported libraries.
+- Do not commit commented-out or dead code.
+- Do not use magic numbers or strings; use constants or enums.
+- Do not block the main thread with expensive synchronous operations.
+- Do not neglect performance and accessibility considerations.
+- Do not bypass code review or testing processes.

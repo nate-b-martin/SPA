@@ -1,0 +1,155 @@
+---
+alwaysApply: true
+---
+
+---
+
+title: Frontend Testing Instructions
+framework: Playwright
+
+---
+
+## Frontend Testing Standards
+
+### General Guidelines
+
+- All critical user flows, components, and pages must be covered by automated end-to-end (E2E) Playwright tests.
+- Tests should be reliable, deterministic, and runnable locally and in CI without modifications.
+- Use meaningful test and step descriptions for clarity.
+- Test files should be placed in a dedicated `e2e/` or `tests/` directory at the project root.
+- Use TypeScript for all Playwright tests for type safety and autocompletion.
+- **Prioritize the Page Object Model (POM) pattern:** Structure tests using reusable page object classes for maintainability and code reuse across test files.
+- Avoid unnecessary waits; rely on Playwright's auto-wait and expect matchers.
+
+---
+
+### Do's
+
+- **Write User-Centric Tests:**  
+  Write tests that reflect real user interactions (e.g., navigation, form input, theme switching).
+
+- **Use Locators Properly:**  
+  Prefer accessible selectors (`getByRole`, `getByLabelText`, or `aria-label`) over brittle CSS selectors.
+
+- **Test Accessibility:**  
+  Always ensure that accessible roles and attributes are tested, including keyboard navigation where relevant.
+
+- **Ensure Responsiveness:**  
+  Add tests for both desktop and mobile viewports to verify responsive behavior.
+
+- **Test Critical Paths:**  
+  Cover navigation, form submissions, error scenarios, modals, and search/filter interactions.
+
+- **Test Dark/Light Theme:**  
+  In projects supporting themes, verify switching and persistence using Playwright.
+
+- **Mock External Requests Where Needed:**  
+  Intercept and stub network calls to avoid flakiness and speed up tests.
+
+- **Clean Up After Each Test:**  
+  Reset or clean up context/state between test runs to avoid test pollution.
+
+- **Use Fixtures For Setup:**  
+  Use Playwright fixtures to handle setup/teardown of common preconditions (such as logged-in state).
+
+- **Make Assertions Clear:**  
+  Use clear and explicit assertions with helpful error messages.
+
+- **Document Your Tests:**  
+  Add comments describing complex user flows or nontrivial assertions.
+
+- **Favor the Page Object Model:**  
+  Encapsulate page-specific selectors and actions into reusable classes to keep tests maintainable and DRY.
+
+---
+
+### Dont's
+
+- **Do Not Test Implementation Details:**  
+  Avoid testing internal JavaScript or DOM structure—test the visible UI and user-observable behaviors.
+
+- **Do Not Use Hardcoded Waits:**  
+  Do not use `page.waitForTimeout` or fixed delays except for test-specific, justified scenarios.
+
+- **Do Not Make Tests Dependent On Each Other:**  
+  All tests must run independently and pass regardless of run order.
+
+- **Do Not Use Unstable/Random Selectors:**  
+  Never select by elements like `.nth-child()` or dynamically generated classes/IDs.
+
+- **Do Not Ignore Failures:**  
+  Do not use `test.skip` or `test.fixme` for long periods—address failures promptly.
+
+- **Do Not Commit Flaky or Incomplete Tests:**  
+  Ensure all committed tests are stable and cover meaningful scenarios.
+
+- **No Real External API Calls in CI:**  
+  All external dependencies must be stubbed/mocked during CI and test runs.
+
+---
+
+### Playwright Specific Standards
+
+- Use `test.describe` and `test.step` for organization and clarity in tests.
+- Configure mobile emulation and test common breakpoints using Playwright's device emulation.
+- Use Playwright Test Runner's parallelization and retry features for efficiency and reliability.
+- Store test artifacts (screenshots, videos, traces) for failed test runs.
+- Adhere to the file naming convention: `*.spec.ts` for test files.
+- **Implement the Page Object Model** to organize page interactions and promote code reuse.
+
+---
+
+### Example Playwright Test File Using Page Object Model
+
+```ts
+// page-objects/HomePage.ts
+import { Page } from "@playwright/test";
+
+export class HomePage {
+  constructor(private page: Page) {}
+
+  async goto() {
+    await this.page.goto("/");
+  }
+
+  banner() {
+    return this.page.getByRole("banner");
+  }
+
+  heading() {
+    return this.page.getByRole("heading", { level: 1 });
+  }
+
+  themeToggle() {
+    return this.page.getByLabelText(/toggle theme/i);
+  }
+}
+
+// tests/homepage.spec.ts
+import { test, expect } from "@playwright/test";
+import { HomePage } from "../page-objects/HomePage";
+
+test.describe("Homepage", () => {
+  test("should render header and intro section", async ({ page }) => {
+    const home = new HomePage(page);
+    await home.goto();
+    await expect(home.banner()).toBeVisible();
+    await expect(home.heading()).toHaveText(/Welcome/i);
+  });
+
+  test("should switch between dark and light theme", async ({ page }) => {
+    const home = new HomePage(page);
+    await home.goto();
+    const themeToggle = home.themeToggle();
+    await themeToggle.click();
+    await expect(page).toHaveScreenshot("dark-theme.png");
+    await themeToggle.click();
+    await expect(page).toHaveScreenshot("light-theme.png");
+  });
+});
+```
+
+---
+
+**Summary:**  
+Playwright E2E tests are mandatory for critical paths and must reflect real user behavior, accessibility, and responsive design. Wherever possible, tests should use the Page Object Model pattern for reusable, maintainable, and organized automation code, following the above do's and don'ts for coverage and reliability.
