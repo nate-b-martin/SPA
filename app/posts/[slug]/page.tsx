@@ -6,8 +6,6 @@ import MDXContent from '@/components/mdx-content'
 import { getPostBySlug, getPosts } from '@/lib/posts'
 import { ArrowLeftIcon } from '@radix-ui/react-icons'
 import { notFound } from 'next/navigation'
-import { MDXRemote } from 'next-mdx-remote/rsc'
-// import NewsletterForm from '@/components/newsletter-form'
 
 export async function generateStaticParams() {
   const posts = await getPosts()
@@ -17,10 +15,11 @@ export async function generateStaticParams() {
 }
 
 const components = {
-  h2: (props:any) => {
-    return (<h2 {...props} className='text-red-400'>
-      {props.children}
-    </h2>
+  h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => {
+    return (
+      <h2 {...props} className='text-red-400'>
+        {props.children}
+      </h2>
     )
   }
 }
@@ -54,6 +53,8 @@ export default async function Post({ params }: { params: { slug: string } }) {
               alt={title || ''}
               className='object-cover'
               fill
+              sizes='(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw'
+              priority
             />
           </div>
         )}
@@ -69,9 +70,6 @@ export default async function Post({ params }: { params: { slug: string } }) {
           <MDXContent source={content}/>
         </main>
 
-        {/* <footer className='mt-16'>
-          <NewsletterForm />
-        </footer> */}
       </div>
     </section>
   )

@@ -1,6 +1,6 @@
 'use client'
 
-import { SetStateAction, useState } from 'react'
+import { useState } from 'react'
 import { PostMetadata } from '@/lib/posts'
 
 import Posts from '@/components/posts'
@@ -27,7 +27,8 @@ export default function PostsWithSearch({ posts }: { posts: PostMetadata[] }) {
           placeholder='Search posts...'
           className='h-9 w-full sm:w-1/2'
           value={query}
-          onChange={(e: { target: { value: SetStateAction<string> } }) => setQuery(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
+          aria-label='Search posts by title'
         />
         {isFiltered && (
           <Button
@@ -35,6 +36,7 @@ export default function PostsWithSearch({ posts }: { posts: PostMetadata[] }) {
             variant='secondary'
             onClick={resetFilter}
             className='h-8 px-2 lg:px-3'
+            aria-label='Clear search filter'
           >
             Reset
             <Cross2Icon className='ml-2 h-4 w-4' />

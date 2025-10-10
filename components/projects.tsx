@@ -18,9 +18,11 @@ export default function Projects({
               <div className='h-72 w-full overflow-hidden bg-muted sm:h-60'>
                 <Image
                   src={project.image}
-                  alt={project.title || ''}
+                  alt={project.title ? `${project.title} project screenshot` : 'Project screenshot'}
                   fill
                   className='rounded-lg object-cover object-center transition-transform duration-500 group-hover:scale-105'
+                  sizes='(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw'
+                  loading='lazy'
                 />
               </div>
             )}

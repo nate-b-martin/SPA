@@ -1,12 +1,5 @@
 ---
-alwaysApply: true
----
-
----
-
-title: Frontend Testing Instructions
-framework: Playwright
-
+alwaysApply: "e2e/**"
 ---
 
 ## Frontend Testing Standards
@@ -25,65 +18,65 @@ framework: Playwright
 
 ### Do's
 
-- **Write User-Centric Tests:**  
+- **Write User-Centric Tests:**
   Write tests that reflect real user interactions (e.g., navigation, form input, theme switching).
 
-- **Use Locators Properly:**  
+- **Use Locators Properly:**
   Prefer accessible selectors (`getByRole`, `getByLabelText`, or `aria-label`) over brittle CSS selectors.
 
-- **Test Accessibility:**  
+- **Test Accessibility:**
   Always ensure that accessible roles and attributes are tested, including keyboard navigation where relevant.
 
-- **Ensure Responsiveness:**  
+- **Ensure Responsiveness:**
   Add tests for both desktop and mobile viewports to verify responsive behavior.
 
-- **Test Critical Paths:**  
+- **Test Critical Paths:**
   Cover navigation, form submissions, error scenarios, modals, and search/filter interactions.
 
-- **Test Dark/Light Theme:**  
+- **Test Dark/Light Theme:**
   In projects supporting themes, verify switching and persistence using Playwright.
 
-- **Mock External Requests Where Needed:**  
+- **Mock External Requests Where Needed:**
   Intercept and stub network calls to avoid flakiness and speed up tests.
 
-- **Clean Up After Each Test:**  
+- **Clean Up After Each Test:**
   Reset or clean up context/state between test runs to avoid test pollution.
 
-- **Use Fixtures For Setup:**  
+- **Use Fixtures For Setup:**
   Use Playwright fixtures to handle setup/teardown of common preconditions (such as logged-in state).
 
-- **Make Assertions Clear:**  
+- **Make Assertions Clear:**
   Use clear and explicit assertions with helpful error messages.
 
-- **Document Your Tests:**  
+- **Document Your Tests:**
   Add comments describing complex user flows or nontrivial assertions.
 
-- **Favor the Page Object Model:**  
+- **Favor the Page Object Model:**
   Encapsulate page-specific selectors and actions into reusable classes to keep tests maintainable and DRY.
 
 ---
 
 ### Dont's
 
-- **Do Not Test Implementation Details:**  
+- **Do Not Test Implementation Details:**
   Avoid testing internal JavaScript or DOM structure—test the visible UI and user-observable behaviors.
 
-- **Do Not Use Hardcoded Waits:**  
+- **Do Not Use Hardcoded Waits:**
   Do not use `page.waitForTimeout` or fixed delays except for test-specific, justified scenarios.
 
-- **Do Not Make Tests Dependent On Each Other:**  
+- **Do Not Make Tests Dependent On Each Other:**
   All tests must run independently and pass regardless of run order.
 
-- **Do Not Use Unstable/Random Selectors:**  
+- **Do Not Use Unstable/Random Selectors:**
   Never select by elements like `.nth-child()` or dynamically generated classes/IDs.
 
-- **Do Not Ignore Failures:**  
+- **Do Not Ignore Failures:**
   Do not use `test.skip` or `test.fixme` for long periods—address failures promptly.
 
-- **Do Not Commit Flaky or Incomplete Tests:**  
+- **Do Not Commit Flaky or Incomplete Tests:**
   Ensure all committed tests are stable and cover meaningful scenarios.
 
-- **No Real External API Calls in CI:**  
+- **No Real External API Calls in CI:**
   All external dependencies must be stubbed/mocked during CI and test runs.
 
 ---
@@ -151,5 +144,5 @@ test.describe("Homepage", () => {
 
 ---
 
-**Summary:**  
+**Summary:**
 Playwright E2E tests are mandatory for critical paths and must reflect real user behavior, accessibility, and responsive design. Wherever possible, tests should use the Page Object Model pattern for reusable, maintainable, and organized automation code, following the above do's and don'ts for coverage and reliability.

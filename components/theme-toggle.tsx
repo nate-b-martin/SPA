@@ -25,13 +25,14 @@ export default function ThemeToggle() {
         onClick={() => {
             setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
         }}
+        aria-label={`Switch to ${resolvedTheme === 'dark' ? 'light' : 'dark'} theme`}
         >
             {resolvedTheme === 'dark' ? (
                 <SunIcon className='size-4 text-orange-300'/>
             ): (
                 <MoonIcon className='size-4 text-sky-950'/>
             )}
-            <span className="sr-only">Toggle Theme</span>
+            <span className='sr-only'>Toggle Theme</span>
         </Button>
     )
 }

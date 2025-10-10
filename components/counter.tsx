@@ -9,7 +9,7 @@ export default function Counter() {
   const decrement = () => setCount(count - 1)
 
   return (
-    <div className="flex items-center gap-3">
+    <div className='flex items-center gap-3'>
         <Button
         size='icon'
         onClick={decrement}
