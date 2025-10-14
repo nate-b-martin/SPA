@@ -11,7 +11,7 @@ export default function Projects({
 }) {
   return (
     <ul className='grid grid-cols-1 gap-8 sm:grid-cols-2'>
-      {projects.map(project => (
+      {projects.map((project, index) => (
         <li key={project.slug} className='group relative'>
           <Link href={`/projects/${project.slug}`}>
             {project.image && (
@@ -22,7 +22,7 @@ export default function Projects({
                   fill
                   className='rounded-lg object-cover object-center transition-transform duration-500 group-hover:scale-105'
                   sizes='(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw'
-                  loading='lazy'
+                  priority={index === 0}
                 />
               </div>
             )}

@@ -18,6 +18,11 @@ export type ProjectMetadata = {
   slug: string
 }
 
+/**
+ * Retrieves a single project by its slug.
+ * @param slug - The slug of the project to retrieve.
+ * @returns A promise that resolves to the project object, or null if not found.
+ */
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
   try {
     const filePath = path.join(rootDirectory, `${slug}.mdx`)
@@ -29,6 +34,11 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
   }
 }
 
+/**
+ * Retrieves a list of all projects, sorted by publication date.
+ * @param limit - The maximum number of projects to return.
+ * @returns A promise that resolves to an array of project metadata.
+ */
 export async function getProjects(limit?: number): Promise<ProjectMetadata[]> {
   const files = fs.readdirSync(rootDirectory)
 
@@ -49,6 +59,11 @@ export async function getProjects(limit?: number): Promise<ProjectMetadata[]> {
   return projects
 }
 
+/**
+ * Extracts metadata from a project file.
+ * @param filepath - The path to the project file.
+ * @returns The project metadata.
+ */
 export function getProjectMetadata(filepath: string): ProjectMetadata {
   const slug = filepath.replace(/\.mdx$/, '')
   const filePath = path.join(rootDirectory, filepath)

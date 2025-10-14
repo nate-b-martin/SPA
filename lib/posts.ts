@@ -18,6 +18,11 @@ export type PostMetadata = {
   slug: string
 }
 
+/**
+ * Retrieves a single post by its slug.
+ * @param slug - The slug of the post to retrieve.
+ * @returns A promise that resolves to the post object, or null if not found.
+ */
 export async function getPostBySlug(slug: string): Promise<Post | null> {
   try {
     const filePath = path.join(rootDirectory, `${slug}.mdx`)
@@ -29,6 +34,11 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
   }
 }
 
+/**
+ * Retrieves a list of all posts, sorted by publication date.
+ * @param limit - The maximum number of posts to return.
+ * @returns A promise that resolves to an array of post metadata.
+ */
 export async function getPosts(limit?: number): Promise<PostMetadata[]> {
   const files = fs.readdirSync(rootDirectory)
 
@@ -49,6 +59,11 @@ export async function getPosts(limit?: number): Promise<PostMetadata[]> {
   return posts
 }
 
+/**
+ * Extracts metadata from a post file.
+ * @param filepath - The path to the post file.
+ * @returns The post metadata.
+ */
 export function getPostMetadata(filepath: string): PostMetadata {
   const slug = filepath.replace(/\.mdx$/, '')
   const filePath = path.join(rootDirectory, filepath)

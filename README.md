@@ -88,38 +88,28 @@ A modern, responsive portfolio website built with Next.js 15, TypeScript, and Ta
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 18+ 
-- npm, yarn, pnpm, or bun
+- Node.js 18+
+- npm (recommended), yarn, pnpm, or bun
 
-### Installation
+### Installation & Setup
 
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd portfolio-project
-```
+1.  **Clone the repository:**
+    ```bash
+    git clone <repository-url>
+    cd portfolio-project
+    ```
 
-2. Install dependencies:
-```bash
-npm install
-# or
-yarn install
-# or
-pnpm install
-```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
 
-3. Run the development server:
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+3.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+4.  **Open your browser** and navigate to [http://localhost:3000](http://localhost:3000).
 
 ## 📖 Usage
 
@@ -178,10 +168,12 @@ The project is configured for static site generation and can be deployed to:
 ## 🔧 Development
 
 ### Available Scripts
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
+- `npm run dev` - Start the development server.
+- `npm run build` - Build the application for production.
+- `npm run start` - Start the production server.
+- `npm run lint` - Run ESLint to check for code quality.
+- `npm run test` - Run Playwright end-to-end tests.
+- `npm run test:ui` - Run Playwright tests with the UI inspector.
 
 ### Key Features in Development
 - **Hot reloading** with Next.js

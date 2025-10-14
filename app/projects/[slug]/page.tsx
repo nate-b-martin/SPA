@@ -3,6 +3,7 @@ import Image from 'next/image'
 
 import { formatDate } from '@/lib/utils'
 import MDXContent from '@/components/mdx-content'
+import MDXImage from '@/components/mdx-image'
 import { ArrowLeftIcon } from '@radix-ui/react-icons'
 import { getProjectBySlug, getProjects } from '@/lib/projects'
 import { notFound } from 'next/navigation'
@@ -12,6 +13,15 @@ export async function generateStaticParams() {
   const slugs = projects.map(project => ({ slug: project.slug }))
 
   return slugs
+}
+
+const components = {
+  img: (props: React.ImgHTMLAttributes<HTMLImageElement>) => {
+    if (!props.src || !props.alt) {
+      return null
+    }
+    return <MDXImage src={props.src} alt={props.alt} />
+  }
 }
 
 export default async function Project({
@@ -61,7 +71,7 @@ export default async function Project({
         </header>
 
         <main className='prose mt-16 dark:prose-invert'>
-          <MDXContent source={content} />
+          <MDXContent source={content} components={components} />
         </main>
       </div>
     </section>

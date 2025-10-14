@@ -3,6 +3,7 @@ import Image from 'next/image'
 
 import { formatDate } from '@/lib/utils'
 import MDXContent from '@/components/mdx-content'
+import MDXImage from '@/components/mdx-image'
 import { getPostBySlug, getPosts } from '@/lib/posts'
 import { ArrowLeftIcon } from '@radix-ui/react-icons'
 import { notFound } from 'next/navigation'
@@ -21,7 +22,10 @@ const components = {
         {props.children}
       </h2>
     )
-  }
+  },
+  img: (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
+    <MDXImage src={props.src ?? ''} alt={props.alt ?? ''} />
+  )
 }
 
 export default async function Post({ params }: { params: { slug: string } }) {
@@ -67,7 +71,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
         </header>
 
         <main className='prose mt-16 dark:prose-invert'>
-          <MDXContent source={content}/>
+          <MDXContent source={content} components={components} />
         </main>
 
       </div>
