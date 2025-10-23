@@ -18,8 +18,8 @@ export default function Header() {
             </Link>
           </li>
           <li className='rounded-sm transition-colors hover:text-foreground focus-within:text-foreground focus-within:ring-1 focus-within:ring-ring'>
-            <Link className='outline-none' href='/projects'>
-              Projects
+            <Link className='outline-none' href='/experiences'>
+              Experiences
             </Link>
           </li>
           <li className='rounded-sm transition-colors hover:text-foreground focus-within:text-foreground focus-within:ring-1 focus-within:ring-ring'>

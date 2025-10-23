@@ -12,7 +12,7 @@ export class ProjectsPage {
   }
 
   projectLinks() {
-    return this.page.getByRole('link')
+    return this.page.locator('.grid > li > a')
   }
 
   projectImages() {

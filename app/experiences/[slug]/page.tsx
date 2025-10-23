@@ -5,12 +5,12 @@ import { formatDate } from '@/lib/utils'
 import MDXContent from '@/components/mdx-content'
 import MDXImage from '@/components/mdx-image'
 import { ArrowLeftIcon } from '@radix-ui/react-icons'
-import { getProjectBySlug, getProjects } from '@/lib/projects'
+import { getExperienceBySlug, getExperiences} from '@/lib/experiences'
 import { notFound } from 'next/navigation'
 
 export async function generateStaticParams() {
-  const projects = await getProjects()
-  const slugs = projects.map(project => ({ slug: project.slug }))
+  const experience = await getExperiences()
+  const slugs = experience.map(experience => ({ slug: experience.slug }))
 
   return slugs
 }
@@ -30,7 +30,7 @@ export default async function Project({
   params: { slug: string }
 }) {
   const { slug } = params
-  const project = await getProjectBySlug(slug)
+  const project = await getExperienceBySlug(slug)
 
   if (!project) {
     notFound()
@@ -43,7 +43,7 @@ export default async function Project({
     <section className='pb-24 pt-32'>
       <div className='container max-w-3xl'>
         <Link
-          href='/projects'
+          href='/experiences'
           className='mb-8 inline-flex items-center gap-2 text-sm font-light text-muted-foreground transition-colors hover:text-foreground'
         >
           <ArrowLeftIcon className='h-5 w-5' />

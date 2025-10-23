@@ -59,7 +59,7 @@ export function PostsLoadingSkeleton() {
   )
 }
 
-export function ProjectsLoadingSkeleton() {
+export function ExperiencesLoadingSkeleton() {
   return (
     <div className='grid grid-cols-1 gap-8 sm:grid-cols-2'>
       {Array.from({ length: 4 }).map((_, i) => (

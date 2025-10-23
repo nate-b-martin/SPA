@@ -24,7 +24,7 @@ export class PostsPage {
   }
 
   async searchPosts(query: string) {
-    await this.searchInput().fill(query)
+    await this.searchInput().type(query)
   }
 
   async clearSearch() {
