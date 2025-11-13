@@ -6,11 +6,11 @@ export default function ContactPage() {
     <section className='pb-24 pt-40'>
       <div className='container max-w-3xl'>
         <h1 className='title mb-12'>Contact</h1>
-        
+
         <div className='prose dark:prose-invert max-w-none'>
           <p className='text-lg text-muted-foreground mb-8'>
-            I'm always interested in hearing about new opportunities and projects. 
-            Feel free to reach out if you'd like to collaborate or just say hello!
+            I&apos;m always interested in hearing about new opportunities and projects.
+            Feel free to reach out if you&apos;d like to collaborate or just say hello!
           </p>
         </div>
 
