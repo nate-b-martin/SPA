@@ -24,12 +24,8 @@ const components = {
   }
 }
 
-export default async function Project({
-  params
-}: {
-  params: { slug: string }
-}) {
-  const { slug } = params
+export default async function ExperiencePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
   const project = await getExperienceBySlug(slug)
 
   if (!project) {
