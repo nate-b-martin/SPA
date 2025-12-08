@@ -39,9 +39,9 @@ export default async function Post({ params }: { params: Promise<{ slug: string 
   const { metadata, content } = post
   const { title, image, author, publishedAt } = metadata
 
-  return (
+return (
     <section className='pb-24 pt-32'>
-      <div className='container max-w-3xl'>
+      <div className='container max-w-3xl animate-fade-in-top'>
         <Link
           href='/posts'
           className='mb-8 inline-flex items-center gap-2 text-sm font-light text-muted-foreground transition-colors hover:text-foreground'
@@ -51,7 +51,7 @@ export default async function Post({ params }: { params: Promise<{ slug: string 
         </Link>
 
         {image && (
-          <div className='relative mb-6 h-96 w-full overflow-hidden rounded-lg'>
+          <div className='relative mb-6 h-96 w-full overflow-hidden rounded-lg animate-fade-in-top animation-delay-200'>
             <Image
               src={image}
               alt={title || ''}
@@ -63,14 +63,14 @@ export default async function Post({ params }: { params: Promise<{ slug: string 
           </div>
         )}
 
-        <header>
+        <header className='animate-fade-in-top animation-delay-400'>
           <h1 className='title'>{title}</h1>
           <p className='mt-3 text-xs text-muted-foreground'>
             {author} / {formatDate(publishedAt ?? '')}
           </p>
         </header>
 
-        <main className='prose mt-16 dark:prose-invert'>
+        <main className='prose mt-16 dark:prose-invert animate-fade-in-top animation-delay-600'>
           <MDXContent source={content} components={components} />
         </main>
 
