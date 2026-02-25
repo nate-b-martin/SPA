@@ -90,8 +90,8 @@ export async function POST(request: Request) {
     }
 
     const { error: emailError } = await resend.emails.send({
-      from: 'Portfolio Contact <onboarding@resend.dev>',
-      to: [process.env.EMAIL_TO || 'nathan@example.com'],
+      from: 'Portfolio Contact <contact@nathanbmartin.com>',
+      to: [process.env.EMAIL_TO || 'nate.martinb@gmail.com'],
       replyTo: data.email,
       subject: `Portfolio Contact: ${data.name}`,
       html: `
