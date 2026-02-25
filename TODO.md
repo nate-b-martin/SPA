@@ -1,6 +1,7 @@
 # Project Improvement Plan
 
 **Created:** 2026-02-04  
+**Updated:** 2026-02-24  
 **Project:** Nathan Martin Portfolio
 
 ---
@@ -8,20 +9,32 @@
 ## 🔴 Critical Issues (Fix Immediately)
 
 ### Security
-- [ ] **Add Security Headers Middleware**
-  - Create `middleware.ts` with CSP, X-Frame-Options, HSTS
-  - Configure referrer-policy and permissions-policy
-  - Test headers with security scanners
+- [x] **Add Security Headers Middleware** ✅ COMPLETED
+  - Created `middleware.ts` with CSP, X-Frame-Options, HSTS
+  - Configured referrer-policy and permissions-policy
+  - Build successful (32.3 kB middleware)
 
-- [ ] **Sanitize MDX Content Rendering**
-  - Audit `components/mdx-content.tsx` usage of `dangerouslySetInnerHTML`
-  - Consider using DOMPurify if user-generated content is ever added
-  - Document the security consideration
+- [x] **Sanitize MDX Content Rendering** ✅ COMPLETED
+  - Audited `components/mdx-content.tsx` usage of `dangerouslySetInnerHTML`
+  - Added `isomorphic-dompurify` for SSR-compatible sanitization
+  - Used restrictive config: only allows span/code tags and class attributes
+  - Build successful: All posts render correctly
 
-- [ ] **Implement Contact Form Rate Limiting**
-  - Add rate limiting middleware or API route protection
-  - Consider using Upstash Redis or similar for rate limiting
-  - Prevent spam/abuse on contact form
+- [x] **Implement Contact Form Rate Limiting** ✅ COMPLETED
+  - Created API route at `app/api/contact/route.ts`
+  - Configured Upstash Redis rate limiting (100/hour per IP)
+  - Added server-side validation and Resend email integration
+  - Build successful: API route 136 B
+
+- [ ] **Strengthen Content Security Policy**
+  - Remove `'unsafe-inline'` and `'unsafe-eval'` from CSP in middleware.ts
+  - Use nonces or hashes for required inline scripts
+  - Test CSP effectiveness with security scanners
+
+- [ ] **Sanitize Email Template Content**
+  - Add HTML sanitization to contact form email generation
+  - Use DOMPurify or escape HTML special characters in email templates
+  - Prevent potential email injection vulnerabilities
 
 ### Testing
 - [ ] **Enable GitHub Actions CI/CD**
@@ -40,11 +53,16 @@
   - Test keyboard navigation and screen reader compatibility
 
 ### Functionality
-- [ ] **Implement Contact Form Backend**
-  - Create API route at `app/api/contact/route.ts`
+- [x] **Implement Contact Form Backend** ✅ COMPLETED
+  - Created API route at `app/api/contact/route.ts`
   - Add form validation (server-side)
-  - Integrate email service (Resend, SendGrid, or Nodemailer)
-  - Add success/error feedback to users
+  - Integrated email service (Resend)
+  - Added success/error feedback to users
+
+- [ ] **Enhance Rate Limiting Strategy**
+  - Improve rate limiting key to include user agent or session ID
+  - Prevent legitimate users from being blocked due to shared IP addresses
+  - Add different rate limits for different types of requests
 
 - [ ] **Add Error & Loading Boundaries**
   - Create `app/error.tsx` for error handling
@@ -124,6 +142,11 @@
   - Add revalidation strategies
 
 ### Code Quality
+- [ ] **Add Form Submission Debouncing**
+  - Implement debouncing to prevent accidental double form submissions
+  - Add visual feedback during debounce period
+  - Test with various form submission patterns
+
 - [ ] **Add Pre-commit Hooks**
   - Install husky and lint-staged
   - Configure to run lint and type-check
@@ -178,25 +201,28 @@
 3. **Create error.tsx** - Simple error boundary page
 4. **Add metadata** - Copy existing patterns to all pages
 5. **Configure static export** - One line in next.config.ts
+6. **Strengthen CSP** - Remove unsafe directives from middleware.ts
+7. **Sanitize email content** - Add HTML escaping to email templates
 
 ---
 
 ## 📊 Current Status
 
-**Last Updated:** 2026-02-04
+**Last Updated:** 2026-02-24  
+**Code Review:** 2026-02-24 - Review completed, security improvements identified
 
 | Category | Completed | In Progress | Pending |
 |----------|-----------|-------------|---------|
-| Security | 0 | 0 | 3 |
+| Security | 3 | 0 | 2 |
 | Testing | 0 | 0 | 3 |
-| Functionality | 0 | 0 | 2 |
+| Functionality | 1 | 0 | 1 |
 | Design/UX | 0 | 0 | 6 |
 | Performance | 0 | 0 | 5 |
-| Code Quality | 0 | 0 | 3 |
+| Code Quality | 0 | 0 | 4 |
 
-**Total Items:** 27  
-**Completed:** 0  
-**Progress:** 0%
+**Total Items:** 31  
+**Completed:** 4  
+**Progress:** 13%
 
 ---
 

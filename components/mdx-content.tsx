@@ -2,11 +2,20 @@ import { JSX } from "react"
 import { highlight } from 'sugar-high'
 import { MDXRemote, MDXRemoteProps } from "next-mdx-remote/rsc"
 import Counter from "@/components/counter"
+import DOMPurify from 'isomorphic-dompurify'
+
+function sanitizeHTML(html: string): string {
+  return DOMPurify.sanitize(html, {
+    ALLOWED_TAGS: ['span', 'code'],
+    ALLOWED_ATTR: ['class'],
+  })
+}
 
 function Code(props: React.HTMLAttributes<HTMLElement>) {
   const { children, ...restProps } = props
   const codeHTML = highlight(String(children))
-  return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...restProps} />
+  const sanitizedHTML = sanitizeHTML(codeHTML)
+  return <code dangerouslySetInnerHTML={{ __html: sanitizedHTML }} {...restProps} />
 }
 
 const components = {
