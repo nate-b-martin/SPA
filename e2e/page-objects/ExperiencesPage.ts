@@ -1,14 +1,14 @@
 import { Page } from '@playwright/test'
 
-export class ProjectsPage {
+export class ExperiencesPage {
   constructor(private page: Page) {}
 
   async goto() {
-    await this.page.goto('/projects')
+    await this.page.goto('/experiences')
   }
 
   heading() {
-    return this.page.getByRole('heading', { level: 1, name: /projects/i })
+    return this.page.getByRole('heading', { level: 1, name: /experiences/i })
   }
 
   projectLinks() {

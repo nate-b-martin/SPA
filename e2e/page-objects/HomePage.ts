@@ -28,7 +28,7 @@ export class HomePage {
   }
 
   projectsLink() {
-    return this.page.getByRole('link', { name: /projects/i })
+    return this.page.getByRole('link', { name: /experiences/i })
   }
 
   contactLink() {
