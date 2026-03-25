@@ -20,7 +20,7 @@ export default function ContactPage() {
             <div className='space-y-4'>
               <div>
                 <h3 className='font-medium text-sm text-muted-foreground'>Email</h3>
-                <p className='text-sm'>nathan@example.com</p>
+                <p className='text-sm'>nate.martinb@gmail.com</p>
               </div>
               <div>
                 <h3 className='font-medium text-sm text-muted-foreground'>Location</h3>
@@ -77,6 +77,16 @@ export default function ContactPage() {
                 Send Message
               </Button>
             </form>
+            <p className='text-sm text-muted-foreground mt-4'>
+              If the form doesn&apos;t work,{' '}
+              <a
+                href='mailto:nate.martinb@gmail.com'
+                className='text-primary hover:underline'
+              >
+                email me directly
+              </a>
+              .
+            </p>
           </div>
         </div>
       </div>
