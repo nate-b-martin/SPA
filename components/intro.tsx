@@ -34,8 +34,8 @@ export default function Intro() {
                     className='flex-1 rounded-lg'
                     src={authorImage}
                     alt='Nathan Martin'
-                    width={175}
-                    height={175}
+                    style={{ objectFit: 'cover' }}
+                    width={200}
                     priority
                 />
                 <Link
