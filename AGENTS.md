@@ -8,6 +8,8 @@ This agent acts as an orchestrator, delegating specialized tasks to domain-speci
 - **Component tasks**: Follow component patterns in components/ directory
 - **Testing tasks**: Use Playwright E2E patterns from testing-instructions.mdc
 - **Content tasks**: Follow MDX structure in content/ directory
+- **Documentation tasks**: Use the document skill to add JSDoc and inline comments
+- **Accessibility tasks**: Use the accessibility skill for WCAG 2 compliance, axe-core scans, keyboard navigation, focus management, color contrast, and ARIA testing
 
 ## Commands
 - **Build**: `npm run build`

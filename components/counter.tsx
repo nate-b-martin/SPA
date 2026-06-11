@@ -12,6 +12,7 @@ export default function Counter() {
     <div className='flex items-center gap-3'>
         <Button
         size='icon'
+        aria-label="Decrease count"
         onClick={decrement}
         >
             <MinusIcon/>
@@ -19,6 +20,7 @@ export default function Counter() {
           <span>Current vote: {count}</span>
         <Button
         size='icon'
+        aria-label="Increase count"
         onClick={increment}
         >
             <PlusIcon/>

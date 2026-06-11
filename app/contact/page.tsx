@@ -129,7 +129,7 @@ export default function ContactPage() {
               If the form doesn&apos;t work,{' '}
               <a
                 href='mailto:nate.martinb@gmail.com'
-                className='text-primary hover:underline'
+                className='text-primary underline hover:underline'
               >
                 email me directly
               </a>

@@ -7,6 +7,15 @@ import Counter from '@/components/counter'
 function Code(props: React.HTMLAttributes<HTMLElement>) {
     const { children, ...restProps } = props
     const codeHTML = highlight(String(children))
+        .replace(/var\(--sh-identifier\)/g, '#354150')
+        .replace(/var\(--sh-keyword\)/g, '#b84343')
+        .replace(/var\(--sh-string\)/g, '#007a6e')
+        .replace(/var\(--sh-class\)/g, '#5b4fc2')
+        .replace(/var\(--sh-property\)/g, '#2563eb')
+        .replace(/var\(--sh-entity\)/g, '#0d9488')
+        .replace(/var\(--sh-jsxliterals\)/g, '#9333ea')
+        .replace(/var\(--sh-sign\)/g, '#4b5563')
+        .replace(/var\(--sh-comment\)/g, '#657080')
     return (
         <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...restProps} />
     )
