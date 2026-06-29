@@ -1,5 +1,5 @@
-import { test, expect, Page } from '@playwright/test';
-import { ContactPage } from './page-objects/ContactPage';
+import { test, expect } from '../fixtures'
+import { ContactPage } from './page-objects/ContactPage'
 
 test.describe('Contact Page', () => {
   test('should display contact form', async ({ page }) => {
@@ -39,5 +39,26 @@ test.describe('Contact Page', () => {
     await expect(contact.nameInput()).toHaveValue('Test User')
     await expect(contact.emailInput()).toHaveValue('test@example.com')
     await expect(contact.messageTextarea()).toHaveValue('This is a test message')
+  })
+
+  test('should have no accessibility violations - idle state', async ({ page, makeAxeBuilder }) => {
+    const contact = new ContactPage(page)
+    await contact.goto()
+    await expect(contact.heading()).toBeVisible()
+    const results = await makeAxeBuilder().analyze()
+    expect(results.violations).toEqual([])
+  })
+
+  test('should have no accessibility violations - error state', async ({ page, makeAxeBuilder }) => {
+    await page.route('**/api/contact', route =>
+      route.fulfill({ status: 500, body: JSON.stringify({ error: 'Server error' }) })
+    )
+    const contact = new ContactPage(page)
+    await contact.goto()
+    await contact.fillForm({ name: 'Test', email: 'test@example.com', message: 'Hello' })
+    await contact.submitForm()
+    await expect(page.getByText(/failed/i)).toBeVisible()
+    const results = await makeAxeBuilder().analyze()
+    expect(results.violations).toEqual([])
   })
 })

@@ -20,7 +20,7 @@ Without this, no tests will run.
 npm install -D @axe-core/playwright
 ```
 
-### 1.2 Create shared test fixture at `tests/e2e/fixtures.ts`
+### 1.2 Create shared test fixture at `tests/fixtures.ts`
 
 Extends Playwright's base `test` to give every spec access to an accessibility scan helper.
 
@@ -37,7 +37,7 @@ export const test = base.extend<AxeFixture>({
         const makeAxeBuilder = () =>
             new AxeBuilder({ page })
                 .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'best-practice'])
-                .exclude('#commonly-reused-element-with-known-issue')
+                .exclude('pre')
 
         await useFixture(makeAxeBuilder)
     }
@@ -59,7 +59,7 @@ npx playwright test --project=chromium -g "accessibility" --headed
 
 ## Phase 2: Accessibility Testing
 
-### 2.1 Create `tests/e2e/accessibility.spec.ts`
+### 2.1 Create `tests/e2e/accessibility-tests/accessibility.spec.ts`
 
 One `test.describe` block per page route. Each test:
 1. Navigates to the page
@@ -71,35 +71,80 @@ One `test.describe` block per page route. Each test:
 
 | Route | What to assert is visible before scan |
 |---|---|
-| `/` (homepage) | `home.heading()`, intro text, recent posts |
+| `/` (homepage) | `home.heading()` |
 | `/posts` | `posts.heading()`, at least one post link |
-| `/posts/[slug]` | `h1` title, article content |
-| `/experiences` | `experiences.heading()`, at least one image |
-| `/experiences/[slug]` | `h1` title, project content |
-| `/contact` | `contact.heading()`, name input, submit button |
+| `/posts/[slug]` | `h1` title |
+| `/experiences` | `experiences.heading()` |
+| `/experiences/[slug]` | `h1` title |
+| `/contact` | `contact.heading()` |
+| `/404` (not-found) | `getByText(/not found/i)` |
+
+**Structure:**
+- Create a `tests/e2e/accessibility-tests/` directory to keep comprehensive a11y scans separate from feature specs
+- Each route gets one `test.describe` block with tests for base state, light theme, and dark theme
+- Use shared helpers for scanning and theme toggling
 
 **Example:**
 
 ```typescript
-import { test, expect } from '../fixtures'
-import { HomePage } from './page-objects/HomePage'
+import { test, expect } from '../../fixtures'
+import { HomePage } from '../page-objects/HomePage'
+import type { Page } from '@playwright/test'
+import type AxeBuilder from '@axe-core/playwright'
+
+async function runAxeTest(
+    page: Page,
+    makeAxeBuilder: () => AxeBuilder
+) {
+    await page.evaluate(() => document.fonts.ready)
+    await page.evaluate(() => new Promise(r => requestAnimationFrame(r)))
+    await page.waitForTimeout(800)
+    const results = await makeAxeBuilder().analyze()
+    expect(results.violations).toEqual([])
+}
+
+async function toggleLightTheme(page: Page) {
+    let currentTheme = await page.locator('html').getAttribute('class')
+    if(currentTheme == 'dark') {
+        await page.getByLabel(/switch to .* theme/i).click()
+    }
+    await expect(page.locator("//html[@class='light']")).toBeVisible()
+}
+
+async function toggleDarkTheme(page: Page) {
+    let currentTheme = await page.locator('html').getAttribute('class')
+    if(currentTheme == 'light') {
+        await page.getByLabel(/switch to .* theme/i).click()
+    }
+    await expect(page.locator("//html[@class='dark']")).toBeVisible()
+}
 
 test.describe('Accessibility - Homepage', () => {
   test('should have no accessibility violations', async ({ page, makeAxeBuilder }) => {
     const home = new HomePage(page)
     await home.goto()
     await expect(home.heading()).toBeVisible()
-    const results = await makeAxeBuilder().analyze()
-    expect(results.violations).toEqual([])
+    await runAxeTest(page, makeAxeBuilder)
+  })
+
+  test('should have no accessibility violations - toggle theme', async ({ page, makeAxeBuilder }) => {
+    const home = new HomePage(page)
+    await home.goto()
+    await expect(home.heading()).toBeVisible()
+    await toggleLightTheme(page)
+    await runAxeTest(page, makeAxeBuilder)
+    await toggleDarkTheme(page)
+    await runAxeTest(page, makeAxeBuilder)
   })
 })
 ```
 
 **Tips:**
-- Use `import { test, expect } from '../fixtures'` (not `@playwright/test`) in accessibility specs
+- Use `import { test, expect } from '../../fixtures'` (not `@playwright/test`) in accessibility specs
 - Call `analyze()` **after** confirming key content is visible
-- Add a dark-theme variant: toggle theme, wait, then scan again
-- For detail pages, use `page.goto('/posts/some-slug')` directly instead of clicking through UI (faster)
+- Each route should have both base and theme-toggle variants
+- For detail pages, navigate by clicking from the list page's first item, then confirm the `h1` is visible
+- Add additional state variants where relevant (e.g. "search" for posts, "filled form" for contact)
 
 ### 2.2 Add baseline a11y scan to existing spec files
 
@@ -110,7 +155,7 @@ Add one test per existing spec:
 - `posts.spec.ts` — add `should have no accessibility violations` (pre- and post-search)
 - `experiences.spec.ts` — add `should have no accessibility violations`
 
-In these files, import from `../../fixtures` and use the destructured `test` (not from `@playwright/test`).
+In these files, import from `../fixtures` and use the destructured `test` (not from `@playwright/test`).
 
 ---
 
@@ -479,8 +524,9 @@ Phase 1 ──► Phase 2 ──► Phase 3 ──► Phase 5 ──► Phase 4 
 # All tests
 npm test
 
-# Specific file
-npx playwright test tests/e2e/accessibility.spec.ts
+# Specific directories
+npx playwright test tests/e2e/accessibility-tests/
+npx playwright test tests/e2e/accessibility-tests/accessibility.spec.ts
 
 # API tests only
 npx playwright test tests/e2e/api/

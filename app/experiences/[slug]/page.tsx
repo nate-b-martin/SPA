@@ -66,7 +66,7 @@ export default async function ExperiencePage({ params }: { params: Promise<{ slu
           </p>
         </header>
 
-        <article className='prose mt-16 dark:prose-invert'>
+        <article className='prose mt-16'>
           <MDXContent source={content} components={components} />
         </article>
       </div>

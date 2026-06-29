@@ -10,7 +10,6 @@ export const test = base.extend<AxeFixture>({
         const makeAxeBuilder = () =>
             new AxeBuilder({ page })
                 .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'best-practice'])
-                .exclude('#commonly-reused-element-with-known-issue')
                 .exclude('pre')
 
         await useFixture(makeAxeBuilder)

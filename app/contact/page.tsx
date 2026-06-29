@@ -39,7 +39,7 @@ export default function ContactPage() {
       <div className='container max-w-3xl'>
         <h1 className='title mb-12'>Contact</h1>
 
-        <div className='prose dark:prose-invert max-w-none'>
+        <div className='prose max-w-none'>
           <p className='text-lg text-muted-foreground mb-8'>
             I&apos;m always interested in hearing about new opportunities and projects.
             Feel free to reach out if you&apos;d like to collaborate or just say hello!
@@ -120,7 +120,7 @@ export default function ContactPage() {
                 </p>
               )}
               {status === 'error' && (
-                <p className='text-sm text-red-600 dark:text-red-400'>
+                <p className='text-sm text-red-700 dark:text-red-400'>
                   Failed to send message. Please try again or email me directly.
                 </p>
               )}

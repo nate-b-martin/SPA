@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test'
+import { test, expect } from '../fixtures'
 import { PostsPage } from './page-objects/PostsPage'
 
 test.describe('Posts Page', () => {
@@ -40,5 +40,22 @@ test.describe('Posts Page', () => {
     // Should be on a post detail page
     await expect(page).toHaveURL(/\/posts\/.+/)
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
+  })
+
+  test('should have no accessibility violations - pre-search', async ({ page, makeAxeBuilder }) => {
+    const posts = new PostsPage(page)
+    await posts.goto()
+    await expect(posts.heading()).toBeVisible()
+    const results = await makeAxeBuilder().analyze()
+    expect(results.violations).toEqual([])
+  })
+
+  test('should have no accessibility violations - post-search', async ({ page, makeAxeBuilder }) => {
+    const posts = new PostsPage(page)
+    await posts.goto()
+    await posts.searchPosts('MDX')
+    await expect(posts.postLinks().first()).toBeVisible()
+    const results = await makeAxeBuilder().analyze()
+    expect(results.violations).toEqual([])
   })
 })

@@ -45,6 +45,7 @@ test.describe('Accessibility - Homepage', () => {
         const home = new HomePage(page)
         await home.goto()
         await expect(home.heading()).toBeVisible()
+        await expect(home.recentPostsSection()).toBeVisible()
         await runAxeTest(page, makeAxeBuilder)
     })
 
