@@ -18,23 +18,27 @@ async function runAxeTest(
 }
 
 async function toggleLightTheme(page: Page) {
-    let currentTheme = await page.locator('html').getAttribute('class')
-    if(currentTheme == 'dark') {
+    const currentTheme = await page.locator('html').getAttribute('class')
+    if(currentTheme?.includes('dark')) {
         await page.getByLabel(/switch to .* theme/i).click()
     }
-    await expect(page.locator("//html[@class='light']")).toBeVisible()
+    await expect(page.locator('html.light')).toBeVisible()
+    await page.waitForTimeout(300)
     await page.evaluate(() => document.fonts.ready)
     await page.evaluate(() => new Promise(r => requestAnimationFrame(r)))
+    await page.waitForTimeout(500)
 }
 
 async function toggleDarkTheme(page: Page) {
-    let currentTheme = await page.locator('html').getAttribute('class')
-    if(currentTheme == 'light') {
+    const currentTheme = await page.locator('html').getAttribute('class')
+    if(currentTheme?.includes('light')) {
         await page.getByLabel(/switch to .* theme/i).click()
     }
-    await expect(page.locator("//html[@class='dark']")).toBeVisible()
+    await expect(page.locator('html.dark')).toBeVisible()
+    await page.waitForTimeout(300)
     await page.evaluate(() => document.fonts.ready)
     await page.evaluate(() => new Promise(r => requestAnimationFrame(r)))
+    await page.waitForTimeout(500)
 }
 
 test.describe('Accessibility - Homepage', () => {

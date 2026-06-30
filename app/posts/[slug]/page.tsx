@@ -70,7 +70,7 @@ return (
           </p>
         </header>
 
-        <article className='prose mt-16 animate-fade-in-top animation-delay-600'>
+        <article className='prose prose-gray mt-16 animate-fade-in-top animation-delay-600'>
           <MDXContent source={content} components={components} />
         </article>
 
