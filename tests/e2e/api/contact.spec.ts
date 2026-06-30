@@ -14,11 +14,23 @@ import { test, expect } from '../../fixtures'
  */
 test.describe('Contact API', () => {
   test('POST /api/contact with valid data returns success', async ({ page }) => {
+    await page.route('**/resend.dev/**', route => route.fulfill({ status: 200 }))
+
     const response = await page.request.post('/api/contact', {
       data: { name: 'Test', email: 'test@example.com', message: 'Hello' }
     })
     expect(response.status()).toBe(200)
     expect(await response.json()).toEqual({ success: true })
+  })
+
+  test('POST /api/contact when Resend fails returns 500', async ({ page }) => {
+    await page.route('**/resend.dev/**', route => route.abort('connectionfailed'))
+
+    const response = await page.request.post('/api/contact', {
+      data: { name: 'Test', email: 'test@example.com', message: 'Hello' }
+    })
+    expect(response.status()).toBe(500)
+    expect(await response.json()).toEqual({ error: 'Failed to send message' })
   })
 
   test('POST /api/contact with missing fields returns 400', async ({ page }) => {
