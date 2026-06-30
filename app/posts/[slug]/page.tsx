@@ -18,7 +18,7 @@ export async function generateStaticParams() {
 const components = {
   h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => {
     return (
-      <h2 {...props} className='text-red-400'>
+      <h2 {...props} className='text-red-700 dark:text-red-400'>
         {props.children}
       </h2>
     )
@@ -70,9 +70,9 @@ return (
           </p>
         </header>
 
-        <main className='prose mt-16 dark:prose-invert animate-fade-in-top animation-delay-600'>
+        <article className='prose prose-gray mt-16 animate-fade-in-top animation-delay-600'>
           <MDXContent source={content} components={components} />
-        </main>
+        </article>
 
       </div>
     </section>

@@ -15,7 +15,7 @@ export default function Experiences({
         <li key={experience.slug} className='group relative'>
           <Link href={`/experiences/${experience.slug}`}>
             {experience.image && (
-              <div className='h-72 w-full overflow-hidden bg-muted sm:h-60'>
+              <div className='relative h-72 w-full overflow-hidden bg-muted sm:h-60'>
                 <Image
                   src={experience.image}
                   alt={experience.title ? `${experience.title} experience screenshot` : 'experience screenshot'}

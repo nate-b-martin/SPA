@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test'
+import { test, expect } from '../fixtures'
 import { ExperiencesPage } from './page-objects/ExperiencesPage'
 
 test.describe('Experiences Page', () => {
@@ -23,5 +23,13 @@ test.describe('Experiences Page', () => {
     // Should be on an experience detail page
     await expect(page).toHaveURL(/\/experiences\/.+/)
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
+  })
+
+  test('should have no accessibility violations', async ({ page, makeAxeBuilder }) => {
+    const experiences = new ExperiencesPage(page)
+    await experiences.goto()
+    await expect(experiences.heading()).toBeVisible()
+    const results = await makeAxeBuilder().analyze()
+    expect(results.violations).toEqual([])
   })
 })
