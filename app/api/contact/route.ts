@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 export async function POST(request: Request) {
   const { name, email, message } = await request.json()
 
@@ -15,6 +13,13 @@ export async function POST(request: Request) {
   }
 
   try {
+    const apiKey = process.env.RESEND_API_KEY
+    if (!apiKey) {
+      return NextResponse.json({ error: 'Server misconfigured: missing API key' }, { status: 500 })
+    }
+
+    const resend = new Resend(apiKey)
+
     await resend.emails.send({
       from: 'onboarding@resend.dev',
       to: 'nate.martinb@gmail.com',
